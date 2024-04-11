@@ -1,0 +1,76 @@
+html {
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+}
+.title{
+    color: #E9B384;
+}
+
+.btn:hover{
+    transform: scale(1.1);
+    transition: transform 0.3s ease-in-out;
+}
+
+
+.btn:hover{
+    transform: scale(1.1);
+}
+
+.btn-add{
+    background-color: #5C8374;
+}
+.btn-add:hover{
+    background-color: #436055;
+}
+
+.btn-refresh{
+    background-color: #93B1A6;
+}
+.btn-refresh:hover{
+    background-color: #5C8374;
+}
+
+.bg-head{
+    background-color: #79AC78;
+}
+
+.badge-success{
+    background-color: #79AC78;
+}
+
+.badge-primary{
+    background-color: #82AAE3;
+}
+
+.badge-danger{
+    background-color: #AA5656;
+}
+
+.btn-green {
+    color: #fff;
+    background-color: #79AC78;
+}
+.btn-green:hover {
+    background-color: #527652;
+}
+.btn-green:focus {
+    background-color: #527652;
+}
+.btn-red{
+    color: #fff;
+    background-color: #AA5656;
+}
+.btn-red:hover{
+    color: #fff;
+    background-color: #9b2323;
+}
+.btn-red:focus{
+    color: #fff;
+    background-color: #9b2323;
+}
+.btn-blue{
+    background-color: #82AAE3;
+}
+.idNumber{
+    color: #E9B384;
+}

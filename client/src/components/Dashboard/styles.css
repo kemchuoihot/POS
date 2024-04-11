@@ -1,0 +1,49 @@
+li {
+   border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+li:hover {
+   background-color: #b5b5b59b;
+}
+
+.bi-list{
+    font-size: 24px;
+}
+
+*{
+    transition: all 0.1s linear;
+}
+
+.bg{
+    background-color: #618264;
+}
+
+i:hover{
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+.tog{
+    position: relative;
+    left: 11px;
+    padding-right: 15px;
+}
+
+
+.avt{
+    width: 40px;
+    border-radius: 50%;
+}
+
+.title{
+    width: 100%;
+    text-align: center;
+    color: #E9B384;
+}
+
+.user-name{
+    height: auto;
+    width: auto;
+    margin: auto;
+}
