@@ -26,6 +26,7 @@ const Dashboard = () => {
 const [isOpen,setIsOpen] = React.useState(false)
 const [name, setName] = React.useState("");
 const [role, setRole] = React.useState("");
+const [page,setPage] = React.useState("Dashboard");
 
 useEffect(() =>
 {
@@ -41,16 +42,15 @@ const toggle = () => setIsOpen(!isOpen);
   return (
     <div className="container-fluid" >
       <div className="row flex-nowrap">
-        <div style={{width: isOpen ? "17%" : "4.5%"}} className="bg">
+        <div style={{width: isOpen ? "17%" : "4.5%"}} className="bg shadow-sm">
           <div  className={isOpen ? "d-flex flex-column align-items-center align-items-sm-start text-white p-3 min-vh-100" : "d-flex flex-column align-items-center align-items-sm-start text-white min-vh-100"}>
             <div className="w-100 row justify-content-between">
                 <div  style={{display: isOpen ? "block" : "none"}} className="">
                 <Link
                 to="/dashboard"
                 className="d-flex align-items-center pb-3 mb-md-1 mt-md-3 me-md-auto text-white text-decoration-none col-9"
-                
                 >
-                <span  className="col-6 fs-5 fw-bolder d-none d-sm-inline">
+                <span className="col-6 fs-5 fw-bolder d-none d-sm-inline title-menu">
                     POS System
                 </span>
                 </Link>
@@ -63,49 +63,55 @@ const toggle = () => setIsOpen(!isOpen);
             >
               <li className="w-100 p-2 align-items-center">
                 <Link
+                onClick={() => setPage("Dashboard")}
                   to="/dashboard"
                   className="nav-link text-white px-0 align-middle"
                 >
                   <i style ={ {"color":"#3b3b3b"}} className="tog fs-4 bi-speedometer2 mr-2 h4" ></i>
-                  <span className="title-menu mask  ms-2" style={{display: isOpen ? "inline" : "none"}}>Dashboard</span>
+                  <span className="text-secondary mask  ms-2" style={{display: isOpen ? "inline" : "none"}}>Dashboard</span>
                 </Link>
               </li>
               {role == "admin" && (<li className="w-100 p-2">
                 <Link
+                onClick={() => setPage("Employee")}
+                
                   to="/dashboard/employee"
                   className="nav-link px-0 align-middle text-white"
                 >
                   <i  style ={ {"color":"#3b3b3b"}} className="tog fs-4 bi-people mr-2 h4"></i>
-                  <span className="ms-2 title-menu" style={{display: isOpen ? "inline" : "none"}}>
+                  <span className="ms-2 text-secondary" style={{display: isOpen ? "inline" : "none"}}>
                     Manage Employees
                   </span>
                 </Link>
               </li>)}
               <li className="w-100 p-2">
                 <Link
+                onClick={() => setPage("Product")}
                   to="/dashboard/product"
                   className="nav-link px-0 align-middle text-white"
                 >
                   <i  style ={ {"color":"#3b3b3b"}} className="tog fs-4 bi-columns mr-2 h4"></i>
-                  <span className="ms-2 title-menu" style={{display: isOpen ? "inline" : "none"}}>Product</span>
+                  <span className="ms-2 text-secondary" style={{display: isOpen ? "inline" : "none"}}>Product</span>
                 </Link>
               </li>
               <li className="w-100 p-2">
                 <Link
+                onClick={() => setPage("Customer")}
                   to="/dashboard/customer"
                   className="nav-link px-0 align-middle text-white"
                 >
                   <i  style ={ {"color":"#3b3b3b"}} className="tog fs-4 bi-people mr-2 h4"></i>
-                  <span className="ms-2 title-menu" style={{display: isOpen ? "inline" : "none"}}>Customer</span>
+                  <span className="ms-2 text-secondary" style={{display: isOpen ? "inline" : "none"}}>Customer</span>
                 </Link>
               </li>
               <li className="w-100 p-2">
                 <Link
+                onClick={() => setPage("Profile")}
                   to="/dashboard/profile"
                   className="nav-link px-0 align-middle text-white"
                 >
                   <i  style ={ {"color":"#3b3b3b"}} className="tog fs-4 bi-person ms-2 mr-2 h4"></i>
-                  <span className="ms-2" style={{display: isOpen ? "inline" : "none"}}>Profile</span>
+                  <span className="ms-2 text-secondary" style={{display: isOpen ? "inline" : "none"}}>Profile</span>
                 </Link>
               </li>
               <li className="w-100 pt-2" 
@@ -115,17 +121,17 @@ const toggle = () => setIsOpen(!isOpen);
                   className="nav-link px-0 align-middle text-white"
                 >
                   <i  style ={ {"color":"#3b3b3b"}} className="tog fs-4 bi-power p-2 ms-2 mr-3 h4"></i>
-                  <span className="ms-2 title-menu" style={{display: isOpen ? "inline" : "none"}}>Logout</span>
+                  <span className="ms-2 text-secondary" style={{display: isOpen ? "inline" : "none"}}>Logout</span>
                 </Link>
               </li>
             </ul>
           </div>
         </div>
         <div className="w-100 col p-0 m-0">
-            <div className="p-2 d-flex shadow">
-                <h4 className="pt-2 title"></h4>
+            <div className="p-2 d-flex">
+                <h2 className="pt-2 title text-secondary">{page}</h2>
                 <span className="d-flex ml-auto">
-                  <span className="user-name">Xin chao {name}</span>
+                  {/* <span className="user-name">Xin chao {name}</span> */}
                   <img src="https://fullstack.edu.vn/static/media/fallback-avatar.155cdb2376c5d99ea151.jpg" alt="users" className="avt"/>
                 </span>
             </div>

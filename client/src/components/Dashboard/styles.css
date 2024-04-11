@@ -13,7 +13,7 @@ li:after {
     height: 1px;
     /* align-items: center; */
     background-color: black;
-    transition: width .1s linear;
+    transition: width .3s linear;
   }
 li:hover:after {
 width: 80%;
@@ -24,7 +24,6 @@ width: 80%;
 }
 
 span{
-    color: black;
 }
 
 .bi-list{
@@ -50,14 +49,14 @@ i:hover{
 
 
 .avt{
-    width: 40px;
+    width: 50px;
     border-radius: 50%;
 }
 
 .title{
     width: 100%;
     text-align: center;
-    color: #E9B384;
+    color: #8e84e9 !;
 }
 
 .user-name{
@@ -67,9 +66,9 @@ i:hover{
 }
 
 .ms-2{
-    transition: all 0.1s linear;
+    transition: all 0.3s linear;
 }
 
-/* .title-menu{
-    transition: all 0.8s linear;
-} */
+.title-menu{
+    color: black;
+}

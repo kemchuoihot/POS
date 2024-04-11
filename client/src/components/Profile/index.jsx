@@ -83,10 +83,10 @@ const Profile = () => {
     return (
         <div>
             <section class="vh-50">
-                <h1 className='title'>Profile</h1>
+                {/* <h1 className='title'>Profile</h1> */}
                 <div className="container">
                     <div className="row d-flex justify-content-center align-items-center h-100">
-                        <div className="col-md-12 col-xl-4">
+                        <div className="col-md-12 col-xl-4 mt-3">
                             <div className="card">
                                 <div className="card-body text-center">
                                     <div className="mt-3 mb-4">

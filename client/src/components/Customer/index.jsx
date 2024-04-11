@@ -21,7 +21,7 @@ const Customer = () => {
     return (
         <div className="px-5 mt-3">
             <div className="d-flex justify-content-center">
-                <h1 className='title'>Customers List</h1>
+                {/* <h1 className='title'>Customers List</h1> */}
             </div>
             <div className="mt-3">
                 <table className='table table-striped table-hover align-middle mb-0 bg-white'>

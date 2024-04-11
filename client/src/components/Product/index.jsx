@@ -60,7 +60,7 @@ const Product = () => {
         <>
         <div className="px-5 mt-3">
             <div className="d-flex justify-content-center">
-                <h1 className='title'>Product List</h1>
+                {/* <h1 className='title'>Product List</h1> */}
             </div>
             <div className="d-flex justify-content-between">
                 <Link to="/dashboard/add_product" className="btn btn-info btn-add">
