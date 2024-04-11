@@ -41,7 +41,7 @@ const toggle = () => setIsOpen(!isOpen);
   return (
     <div className="container-fluid" >
       <div className="row flex-nowrap">
-        <div style={{width: isOpen ? "250px" : "60px"}} className="bg">
+        <div style={{width: isOpen ? "17%" : "4.5%"}} className="bg">
           <div  className={isOpen ? "d-flex flex-column align-items-center align-items-sm-start text-white p-3 min-vh-100" : "d-flex flex-column align-items-center align-items-sm-start text-white min-vh-100"}>
             <div className="w-100 row justify-content-between">
                 <div  style={{display: isOpen ? "block" : "none"}} className="">
@@ -55,7 +55,7 @@ const toggle = () => setIsOpen(!isOpen);
                 </span>
                 </Link>
                 </div>
-                <i onClick={toggle} class="col-1 p-3 m-auto bi bi-list"></i>
+                <i  style ={ {"color":"#3b3b3b"}} onClick={toggle} class="col-1 p-3 m-auto bi bi-list"></i>
             </div>
             <ul
               className="w-100 nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start"
@@ -66,8 +66,8 @@ const toggle = () => setIsOpen(!isOpen);
                   to="/dashboard"
                   className="nav-link text-white px-0 align-middle"
                 >
-                  <i className="tog fs-4 bi-speedometer2 mr-2" ></i>
-                  <span className="mask  ms-2" style={{display: isOpen ? "inline" : "none"}}>Dashboard</span>
+                  <i style ={ {"color":"#3b3b3b"}} className="tog fs-4 bi-speedometer2 mr-2 h4" ></i>
+                  <span className="title-menu mask  ms-2" style={{display: isOpen ? "inline" : "none"}}>Dashboard</span>
                 </Link>
               </li>
               {role == "admin" && (<li className="w-100 p-2">
@@ -75,8 +75,8 @@ const toggle = () => setIsOpen(!isOpen);
                   to="/dashboard/employee"
                   className="nav-link px-0 align-middle text-white"
                 >
-                  <i className="tog fs-4 bi-people mr-2"></i>
-                  <span className="ms-2 " style={{display: isOpen ? "inline" : "none"}}>
+                  <i  style ={ {"color":"#3b3b3b"}} className="tog fs-4 bi-people mr-2 h4"></i>
+                  <span className="ms-2 title-menu" style={{display: isOpen ? "inline" : "none"}}>
                     Manage Employees
                   </span>
                 </Link>
@@ -86,8 +86,8 @@ const toggle = () => setIsOpen(!isOpen);
                   to="/dashboard/product"
                   className="nav-link px-0 align-middle text-white"
                 >
-                  <i className="tog fs-4 bi-columns mr-2"></i>
-                  <span className="ms-2" style={{display: isOpen ? "inline" : "none"}}>Product</span>
+                  <i  style ={ {"color":"#3b3b3b"}} className="tog fs-4 bi-columns mr-2 h4"></i>
+                  <span className="ms-2 title-menu" style={{display: isOpen ? "inline" : "none"}}>Product</span>
                 </Link>
               </li>
               <li className="w-100 p-2">
@@ -95,8 +95,8 @@ const toggle = () => setIsOpen(!isOpen);
                   to="/dashboard/customer"
                   className="nav-link px-0 align-middle text-white"
                 >
-                  <i className="tog fs-4 bi-people mr-2"></i>
-                  <span className="ms-2" style={{display: isOpen ? "inline" : "none"}}>Customer</span>
+                  <i  style ={ {"color":"#3b3b3b"}} className="tog fs-4 bi-people mr-2 h4"></i>
+                  <span className="ms-2 title-menu" style={{display: isOpen ? "inline" : "none"}}>Customer</span>
                 </Link>
               </li>
               <li className="w-100 p-2">
@@ -104,7 +104,7 @@ const toggle = () => setIsOpen(!isOpen);
                   to="/dashboard/profile"
                   className="nav-link px-0 align-middle text-white"
                 >
-                  <i className="tog fs-4 bi-person ms-2 mr-2"></i>
+                  <i  style ={ {"color":"#3b3b3b"}} className="tog fs-4 bi-person ms-2 mr-2 h4"></i>
                   <span className="ms-2" style={{display: isOpen ? "inline" : "none"}}>Profile</span>
                 </Link>
               </li>
@@ -114,8 +114,8 @@ const toggle = () => setIsOpen(!isOpen);
               <Link
                   className="nav-link px-0 align-middle text-white"
                 >
-                  <i className="tog fs-4 bi-power p-2 ms-2 mr-3"></i>
-                  <span className="ms-2" style={{display: isOpen ? "inline" : "none"}}>Logout</span>
+                  <i  style ={ {"color":"#3b3b3b"}} className="tog fs-4 bi-power p-2 ms-2 mr-3 h4"></i>
+                  <span className="ms-2 title-menu" style={{display: isOpen ? "inline" : "none"}}>Logout</span>
                 </Link>
               </li>
             </ul>
