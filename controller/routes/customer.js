@@ -60,5 +60,27 @@ router.post('/create', async (req, res) => {
     }
 });
 
+router.post('/payment', async (req, res) => {
+    const { phoneNumber, total } = req.body;
+    // console.log(phoneNumber, total);
+    try {
+        const customer = await Customer.findOne({ phone_number: phoneNumber});
+        if (customer) {
+            customer.total += total;
+            const updatedCustomer = await customer.save();
+            if(updatedCustomer){
+                res.json({ success: true, message: "Thành công!" });
+            }
+            else{
+                res.json({ success: false, message: "Lỗi trong quá trình xử lý!" });
+            }
+        }
+    }
+    catch (error) {
+        console.error(error);
+        res.status(500).send('Server Error');
+    }
+});
+
 
 module.exports = router;

@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-
+require('mongoose-long')(mongoose);
+const { Types: { Long } } = mongoose;
 const CustomerSchema = new mongoose.Schema({
   fullname: {
     type: String,
@@ -12,7 +13,11 @@ const CustomerSchema = new mongoose.Schema({
   phone_number: {
     type: String,
     required: true,
-  }
+  },
+  total: {
+    type: Long,
+    default: 0,
+  },  
 });
 
 module.exports = mongoose.model('Customer', CustomerSchema, 'Customers');

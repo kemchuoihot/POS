@@ -1,6 +1,10 @@
+import { Link, Outlet, useNavigate } from "react-router-dom";
+
 const Home = () => {
     return (
-        <h1>Home</h1>
+        <Link to="/main" className="btn btn-add">
+            Main
+        </Link>
     )
 };
 

@@ -63,7 +63,7 @@ const Product = () => {
                 {/* <h1 className='title'>Product List</h1> */}
             </div>
             <div className="d-flex justify-content-between">
-                <Link to="/dashboard/add_product" className="btn btn-info btn-add">
+                <Link to="/dashboard/add_product" className="btn btn-add">
                     Add Product
                 </Link>
                 {/* <Link to="/dashboard/add_employee" className="btn btn-info btn-add">
@@ -103,7 +103,7 @@ const Product = () => {
                                 <img
                                 src={e.photo[0]}
                                 alt=""
-                                style={{ width: "35px", height: "35px" }}
+                                style={{ width: "45px", height: "45px", borderRadius: "10%" }}
                                 className="mr-3"
                                 />
                                 {e.name}</td>

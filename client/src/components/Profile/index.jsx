@@ -82,7 +82,7 @@ const Profile = () => {
 
     return (
         <div>
-            <section class="vh-50">
+            <section class="vh-50 min-vh-100">
                 {/* <h1 className='title'>Profile</h1> */}
                 <div className="container">
                     <div className="row d-flex justify-content-center align-items-center h-100">
@@ -135,8 +135,8 @@ const Profile = () => {
                 </div>
             </section>
 
-            <Modal show={showModal} onHide={handleCloseModal}>
-                <Modal.Header closeButton>
+            <Modal className="pt-3" show={showModal} onHide={handleCloseModal}>
+                <Modal.Header>
                     <Modal.Title>Edit Profile</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
@@ -159,8 +159,8 @@ const Profile = () => {
                 </Modal.Footer>
             </Modal>
 
-            <Modal show={showNewPasswordModal} onHide={handleChangePasswordCloseModal}>
-                <Modal.Header closeButton>
+            <Modal className="pt-3" show={showNewPasswordModal} onHide={handleChangePasswordCloseModal}>
+                <Modal.Header>
                     <Modal.Title>Change Password</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>

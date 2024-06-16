@@ -1,29 +1,56 @@
-
-li {
+.dash-icon {
     position: relative;
     display: inline-block;
+    transition:all .5s ease;
+    cursor: pointer;
 }
 
-li:after {
+.dash-icon:before{
+    background-color: #4f46e5;
+    position: absolute;
+    top: 0;
+    left: -100%;
+    content: "";
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    border-radius: 3px;
+    transition: all .5s ease;
+}
+
+.dash-icon:hover:before{
+    left: 0;
+}
+
+.dash-icon:hover i,
+.dash-icon:hover span {
+    color: #fff !important;
+}
+
+
+/* .dash-icon:after {
     content: "";
     position: absolute;
     left:10%;
     top: 100%;
     width: 0;
     height: 1px;
-    /* align-items: center; */
-    background-color: black;
+    background-color: #6366f1;
     transition: width .3s linear;
-  }
-li:hover:after {
-width: 80%;
+  } */
+/* .dash-icon:hover:after {
+    width: 80%;
+} */
+
+.dash-icon:hover{
+    border-color: transparent;
+    background-color: #4f46e5;
+    transform: scale(1.05);
 }
 
-*{
-    transition: all 0.3s linear;
-}
 
-span{
+.bg-main{
+    background-color: rgb(245, 244, 244);
 }
 
 .bi-list{
@@ -33,7 +60,7 @@ span{
 
 
 .bg{
-    background-color: #ffffff;
+    background-color: #fff;
 }
 
 i:hover{
@@ -71,4 +98,18 @@ i:hover{
 
 .title-menu{
     color: black;
+}
+
+.text-purple{
+    color:#1c1650;
+}
+
+.text-title{
+    font-family: "Poetsen One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    color:#6366F1 !important;
+}
+.side-bar{
+    position: fixed !important;
 }

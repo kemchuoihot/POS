@@ -31,6 +31,11 @@ const Main = () => {
   const [product, setProduct] = useState(null);
   const [error, setError] = useState('');
 
+  const [date,setDate] = useState('');
+
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [textSuccess, setTextSuccess] = useState('');
+
   useEffect(() => {
     const fetchIphoneData = async () => {
         try {
@@ -43,6 +48,11 @@ const Main = () => {
         }
     };
     fetchIphoneData();
+  }, []);
+
+  useEffect(() => {
+    const date = new Date();
+    setDate(date);
   }, []);
 
   useEffect(() => {
@@ -75,6 +85,7 @@ const Main = () => {
     };
   }, [showModal]);
 
+
   const handleBrandClick = (brand) => {
     setSelectBrand(brand);
   }
@@ -94,6 +105,8 @@ const Main = () => {
     setShowModal(true);
   };
 
+
+
 const addToCart = (item) => {
   const newItem = {
       id: item._id,
@@ -101,18 +114,23 @@ const addToCart = (item) => {
       price: item.price,
       image: item.photo[0]
   };
-  
-const updatedOrderArray = [...orderArray, newItem];
-    setOrderArray(updatedOrderArray);
-    handleCloseModal();
+
+  const updatedOrderArray = [...orderArray, newItem];
+  setOrderArray(updatedOrderArray);
+  setShowModal(false);
+
 };
+
 
 const [orderArray, setOrderArray] = useState([]);
 const orderTotalItems = () => orderArray.length;
   
-const orderTotalCost = () => orderArray.reduce((total, item) => {
-  return total + (item.price || 0);
-}, 0).toFixed(2);
+const orderTotalCost = () => {
+  const total = orderArray.reduce((acc, item) => {
+    return acc + (item.price || 0);
+  }, 0);
+  return total.toFixed(2);
+};
   
 const orderBasketClear = () => {
   setOrderArray([]);
@@ -127,7 +145,7 @@ const formatPrice = (price) => {
 
 const handleCheckout = async () => {
   setShowModalCheckout(true);
-
+  
   try {
     const response = await axios.post('http://localhost:5000/customer/checkout', { phoneNumber });
     const { success, customer, message: msg } = response.data;
@@ -136,6 +154,7 @@ const handleCheckout = async () => {
       setCustomerInfo(customer);
       setMessage('');
       setShowModalCheckout(true);
+      // handleCloseModal()
     } else {
       setCustomerInfo(null);
       setMessage(msg);
@@ -155,7 +174,9 @@ const handleConfirmPhoneNumber = async () => {
     if (success) {
       setCustomerInfo(customer);
       setMessage('');
-      setShowModalCheckout(true);
+      setShowModalCheckout(false);
+      
+      alert('Success');
     } else {
       setCustomerInfo(null);
       setMessage(msg);
@@ -218,16 +239,19 @@ const handleCreateAccount = async (e) => {
       if (success) {
         setCustomerInfo(customer);
         setMessage('');
+        setTextSuccess("Success! Your account has been created");
         setShowCreateAccountModal(false);
         setShowModalCheckout(true);
+        setShowSuccess(true);
       } else {
         setCustomerInfo(null);
         setMessage(msg);
       }
 
-      setFullName('');
-      setAddress('');
-      setPhoneNumber('');
+      // setFullName('');
+      // setAddress('');
+      // setPhoneNumber('');
+
     } else {
       console.error('Request failed with status:', response.status);
     }
@@ -241,6 +265,7 @@ const searchProductByBarcode = async () => {
     try {
       const response = await axios.get(`http://localhost:5000/home/barcode/${barcode}`);
       setProduct(response.data);
+      addToCart(response.data)
       setError('');
     } catch (error) {
       setError('Không tìm thấy sản phẩm');
@@ -257,6 +282,26 @@ const searchProductByBarcode = async () => {
     }
   }
 };
+
+const clearInfor = () => {
+  setCustomerInfo(null);
+  setPhoneNumber('');
+}
+
+const payMention = async () => {
+  try {
+    const responseOrder = await axios.post('http://localhost:5000/order', {phoneNumber,total: orderTotalCost()});
+    // console.log('Response Order:', responseOrder.data);
+    // alert('Payment success');
+    setShowModalCheckout(false);
+    setTextSuccess("Payment success! You have paid " + orderTotalCost() + " VND"  + " for your order");
+    setShowSuccess(true);
+    clearInfor();
+    orderBasketClear();
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
 
 
     return (
@@ -282,7 +327,8 @@ const searchProductByBarcode = async () => {
                   </div>
                 )}
               </div>
-              <p>Order #88 <small className="text-muted">Today, 14 Nov 2023, 17:20 PM</small></p>
+              {/* <p>Order #88 </p> */}
+              <p className="mt-2">{date.toLocaleString()}</p>
                 <div className="card rounded-3 mb-3">
                     <div className="card-body">
                     <ul className="nav nav-pills" id="pills-tab" role="tablist">
@@ -313,7 +359,7 @@ const searchProductByBarcode = async () => {
                                           <div className="modal-content">
                                             <div className="modal-header">
                                               <h5 className="modal-title">{selectedModalItem.name}</h5>
-                                              <button type="button" className="btn-close" onClick={handleCloseModal}></button>
+                                              {/* <button type="button" className="btn-close" onClick={handleCloseModal}></button> */}
 
                                             </div>
                                             <div className="modal-body">
@@ -348,7 +394,7 @@ const searchProductByBarcode = async () => {
                                         <div className="modal-content">
                                           <div className="modal-header">
                                             <h5 className="modal-title">{selectedModalItem.name}</h5>
-                                            <button type="button" className="btn-close" onClick={() => handleCloseModal()}></button>
+                                            {/* <button type="button" className="btn-close" onClick={() => handleCloseModal()}></button> */}
 
                                           </div>
                                           <div className="modal-body">
@@ -381,6 +427,7 @@ const searchProductByBarcode = async () => {
                 <h5 className="d-flex justify-content-between align-items-center">
                   <span>Cart</span>
                   <button onClick={orderBasketClear} className="btn btn-sm btn-danger rounded-pill">Clear</button>
+                  
                 </h5>
                 <ul id="orderlist" className="list-unstyled" style={{ height: '30vh', overflowY: 'auto' }}>
                   {orderArray.map((item, index) => (
@@ -391,7 +438,7 @@ const searchProductByBarcode = async () => {
                     </li>
                   ))}
                 </ul>
-                <ul id="orderlist" className="list-unstyled" style={{ height: '30vh', overflowY: 'auto' }}></ul>
+               
                 <ul className="list-unstyled">
                   <li className="d-flex justify-content-between align-items-center">
                     <big className="fw-bold" style={{ fontFamily: "'JetBrains Mono', monospace" }}>Total items:</big>
@@ -409,13 +456,15 @@ const searchProductByBarcode = async () => {
                       <p><strong>Name:</strong> {customerInfo.fullname}</p>
                       <p><strong>Address:</strong> {customerInfo.address}</p>
                       <p><strong>Phone Number:</strong> {customerInfo.phone_number}</p>
+                      <button onClick={clearInfor} className="btn btn-sm btn-danger rounded-pill">Clear Infor</button>
                     </div>
                   )}
                   <li>
                     <button className="btn btn-primary btn-lg w-100" onClick={handleCheckout}>CHECK OUT</button>
+
                     {/* Modal */}
-                    <Modal show={showModalCheckout} onHide={() => setShowModalCheckout(false)}>
-                        <Modal.Header closeButton>
+                    <Modal className='mt-3'  show={showModalCheckout} onHide={() => setShowModalCheckout(false)}>
+                        <Modal.Header>
                             <Modal.Title>Checkout Modal</Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
@@ -437,9 +486,11 @@ const searchProductByBarcode = async () => {
                                   <p><strong>Address:</strong> {customerInfo.address}</p>
                                   <p><strong>Phone Number:</strong> {customerInfo.phone_number}</p>
                                 </div>
+                                
                               )}
                             </div>
                             <input
+                            required
                                 type="text"
                                 placeholder="Enter phone number"
                                 value={phoneNumber}
@@ -447,17 +498,37 @@ const searchProductByBarcode = async () => {
                             />
                         </Modal.Body>
                         <Modal.Footer>
-                            <button variant="secondary" onClick={() => setShowModalCheckout(false)}>
+                            <button className='btn btn-secondary'  variant="secondary" onClick={() => setShowModalCheckout(false)}>
                                 Close
                             </button>
-                            <button variant="primary" onClick={handleConfirmPhoneNumber}>
-                                Confirm
-                            </button>
+                        {!customerInfo && (
+                          <button className='btn btn-primary' variant="primary" onClick={handleConfirmPhoneNumber}>
+                            Confirm
+                          </button>
+                        )}
+                        {customerInfo && (
+                          <button className='btn btn-primary' variant="primary" onClick={payMention}>
+                            Payment
+                          </button>
+                        )}
+                        
                         </Modal.Footer>
                     </Modal>
 
-                    <Modal show={showCreateAccountModal} onHide={() => setShowCreateAccountModal(false)}>
-                      <Modal.Header closeButton>
+                    <Modal className='mt-3'  show={showSuccess} onHide={() => setShowSuccess(false)}>
+                      <Modal.Header>
+                          <h4 class="modal-title w-100">Awesome!</h4>	
+                        </Modal.Header>
+                        <Modal.Body>
+                            <p class="text-center">{textSuccess}</p>
+                        </Modal.Body>
+                        <Modal.Footer>
+                          <button class="btn btn-success btn-block" data-dismiss="modal" onClick={() => setShowSuccess(false)}>OK</button>
+                        </Modal.Footer>
+                    </Modal>
+
+                    <Modal className='mt-3'  show={showCreateAccountModal} onHide={() => setShowCreateAccountModal(false)}>
+                      <Modal.Header>
                         <Modal.Title>Create New Account</Modal.Title>
                       </Modal.Header>
                       <Modal.Body>
@@ -505,8 +576,8 @@ const searchProductByBarcode = async () => {
                             />
                             {addressError && <div className="invalid-feedback">Please enter address</div>}
                           </div>
-                          <button type="submit" className="btn btn-primary">Create Account</button>
-                          <button type="button" className="btn btn-secondary" onClick={() => setShowCreateAccountModal(false)}>Cancel</button>
+                          <button type="submit" className="btn btn-primary" >Create Account</button>
+                          <button type="button" className="btn btn-secondary" onClick={() => {setShowCreateAccountModal(false)}}>Cancel</button>
                         </form>
                       </Modal.Body>
                     </Modal>

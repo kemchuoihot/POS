@@ -35,7 +35,7 @@ const add_employee = () =>{
     }
     
     return(
-        <div className="d-flex justify-content-center align-items-center h-75">
+        <div className="d-flex justify-content-center align-items-center h-75 mh-">
             <div className="p-3 rounded w-25 border">
                 <h2 className="text-center">Add new staff</h2>
                 <form className="row g-1">

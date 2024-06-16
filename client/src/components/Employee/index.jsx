@@ -14,6 +14,9 @@ infinity.register()
 
 
 const Employee = () => {
+    const [name,setName] = useState("");
+    const [email,setEmail] = useState("");
+    const [error,setError] = useState("");
     const [employee, setEmployee] = useState([]);
     const [loading, setLoading] = useState(false);
     const [show, setShow] = useState(false);
@@ -26,7 +29,9 @@ const Employee = () => {
     const [blockModal, setBlockModal] = useState("");
     const [status, setStatus] = useState("");
     const [emailResent, setEmailResent] = useState("");
-
+    const [showModalAdd, setShowModalAdd] = useState(false);
+    const handleCloseModalAdd = () => setShowModalAdd(false);
+    const handleShowModalAdd = () => setShowModalAdd(true);
     useEffect(() => { 
         fetchData();
     },[]);
@@ -41,6 +46,25 @@ const Employee = () => {
             }
         }).catch(error =>{ console.log(error)});
     };
+
+    const handleSubmit = async (event) => {
+        setLoading(true);
+        event.preventDefault();
+        try {
+            const response = await axios.post("http://localhost:5000/account",{name,email},{headers: {
+                'authorization':  `${localStorage.getItem("token")}`,
+            }})
+            .then((result) => {
+                setLoading(false);
+                navigte("/dashboard/employee");
+            })
+            console.log(response);
+        } catch (error) {
+            setLoading(false);
+            console.log(error);
+            setError(error.response.data.message);
+        }
+    }
 
     const handleRefresh = () => {
         setLoading(true);
@@ -75,27 +99,30 @@ const Employee = () => {
 
     return(
         <>
-        <div className="px-5 mt-3">
+        <div className=" px-5 mt-3">
             <div className="d-flex justify-content-center">
                 {/* <h1 className='title'>Employee List</h1> */}
             </div>
             <div className="d-flex justify-content-between">
-                <Link to="/dashboard/add_employee" className="btn btn-info btn-add">
+                {/* <Link to="/dashboard/add_employee" className="btn btn-add">
                     Add Employee
-                </Link>
+                </Link> */}
+                <button className="btn btn-add" onClick={handleShowModalAdd}>
+                    Add Employee
+                </button>
                 {loading ? ( <l-infinity
                     size="55"
                     stroke="4"
                     stroke-length="0.15"
                     bg-opacity="0.1"
                     speed="1.3" 
-                    color="#93B1A6" 
+                    color="#4f46e5" 
                     ></l-infinity> )
-                    : <button className="btn text-white ml-2 btn-refresh" onClick={handleRefresh}>Refresh</button>}
+                    : <button className="btn ml-2 btn-refresh" onClick={handleRefresh}>Refresh</button>}
             </div>
             <div className="mt-3">
-                <table className='table table-striped table-hover align-middle mb-0 bg-white'>
-                    <thead className='text-white bg-head border'>
+                <table className='table table-striped table-bordered table-hover align-middle mb-0 bg-white'>
+                    <thead className='text-white bg-head borderd'>
                         <tr>
                             <th scope='col'>ID</th>
                             <th scope='col'>Name</th>
@@ -161,8 +188,29 @@ const Employee = () => {
                 </table>
             </div>
         </div>
+        <Modal className="pt-3" show={showModalAdd} onHide={handleCloseModalAdd}>
+                <Modal.Header>
+                    <Modal.Title>Add Employee</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <label>Name:</label>
+                    <input type="text" className="form-control mb-3" onChange={(e) => setName(e.target.value)} />
+                    <label>Email:</label>
+                    <input type="text" className="form-control mb-3" onChange={(e) => setEmail(e.target.value)} />
+                </Modal.Body>
+                <Modal.Footer>
+                    <button className="btn btn-secondary" onClick={handleCloseModalAdd}>
+                        Close
+                    </button>
+                    <button className="btn btn-primary"  onClick={handleSubmit}>
+                        Save Changes
+                    </button>
+                </Modal.Footer>
+            </Modal>
+
+
         <Modal show={show} onHide={handleClose}>
-            <Modal.Header closeButton>
+            <Modal.Header>
             <Modal.Title>Block employee</Modal.Title>
             </Modal.Header>
             <Modal.Body>Do you really want to lock/unlock <em>{blockModal}</em>!?</Modal.Body>
@@ -190,6 +238,7 @@ const Employee = () => {
                 </Button>
             </Modal.Footer>
         </Modal>
+        
       </>
     )
 };

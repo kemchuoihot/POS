@@ -19,7 +19,7 @@ const Customer = () => {
     };
 
     return (
-        <div className="px-5 mt-3">
+        <div className="px-5 mt-3 min-vh-100">
             <div className="d-flex justify-content-center">
                 {/* <h1 className='title'>Customers List</h1> */}
             </div>

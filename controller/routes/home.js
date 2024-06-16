@@ -32,7 +32,7 @@ router.get('/barcode/:barcode', async (req, res) => {
   const barcode = req.params.barcode;
 
   try {
-    const iphone = await Phone.findOne({ barcode: barcode, brand: 'Apple' });
+    const iphone = await Phone.findOne({ barcode: barcode});
 
     if (!iphone) {
       return res.status(404).json({ message: 'Không tìm thấy sản phẩm với mã vạch này.' });
