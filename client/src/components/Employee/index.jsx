@@ -129,8 +129,8 @@ const Employee = () => {
                             ></l-infinity> )
                             : <button className="btn ml-2 btn-refresh" onClick={handleRefresh}>Refresh</button>}
                     </div>
-                    <div className="mt-3">
-                        <table className='table table-striped table-bordered table-hover align-middle mb-0 bg-white'>
+                    <div className="mt-3 table-responsive">
+                        <table className='table table-striped table-hover align-middle mb-0 bg-white'>
                             <thead className='text-white bg-head borderd'>
                                 <tr>
                                     <th scope='col'>ID</th>
